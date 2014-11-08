@@ -8,6 +8,6 @@ class br2pkg():
         self.nam = ""
         self.dep = []
         self.hel = ""
-
+        self.tags = []
     def to_JSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
