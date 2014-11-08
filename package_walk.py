@@ -6,7 +6,7 @@
 # TODO Handle "depend on"s with multiple OR (||) separated BR2_*
 # TODO Handle multi line deps (with \ as next line token)
 #      Right now the deps shouldn't be used for anything important
-# TODO Strip double quotes (") from bool values
+#
 # (C) Andre Wolokita 2014
 #
 import os #for walk
@@ -43,7 +43,7 @@ for subdir, dirs, files in os.walk(pkgdir):
                 if f_conf_just_set and re.match(reg_nam,line):
                     f_conf_just_set = 0
                     nam = line.strip('\tbool ')
-                    #nam = nam.strip('\".*\"')
+                    nam = re.sub('"','',nam)
                     nam = nam.strip('\n')
                     pkg.nam = nam
 
@@ -75,7 +75,7 @@ for subdir, dirs, files in os.walk(pkgdir):
                 if re.match(reg_dep, line):
                     deps = line.strip('\tdepends on ')
                     deps = deps.strip(' *')
-                    deps = deps.strip('# *')
+                    deps = re.sub('[a-z\W]*','',deps)
                     deps = deps.strip('\n')
                     pkg.dep.append(deps)
                     #print deps

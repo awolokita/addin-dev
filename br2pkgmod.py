@@ -3,6 +3,7 @@
 # TODO
 # (c) 2014 Andre Wolokita
 import json
+from br2pkg import br2pkg
 
 class br2pkgmod():
     def __init__(self):
