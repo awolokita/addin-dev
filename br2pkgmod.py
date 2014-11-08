@@ -1,7 +1,7 @@
 # This class represtents a buildroot configuration 'module'
 # TODO Designator assignment - based on hash of pkg list, perhaps?
 # TODO
-#(C) Andre Wolokita 2014
+# (c) 2014 Andre Wolokita
 import json
 
 class br2pkgmod():

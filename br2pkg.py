@@ -1,5 +1,5 @@
 # Python object representation of a buildroot package with JSON serialization
-# (C) Andre Wolokita 2014
+# (c) 2014 Andre Wolokita
 import json
 
 class br2pkg():
