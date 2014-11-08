@@ -45,7 +45,7 @@ for subdir, dirs, files in os.walk(pkgdir):
                     nam = line.strip('\tbool ')
                     nam = re.sub('"','',nam)
                     nam = nam.strip('\n')
-                    pkg.nam = nam
+                    pkg.name = nam
 
                 # Parsing the config symbol
                 if re.match(reg_conf,line) and not f_conf:
@@ -54,7 +54,7 @@ for subdir, dirs, files in os.walk(pkgdir):
                     f_conf_just_set = 1
                     conf = line.strip('config ') # get only the
                     conf = conf.strip('\n')      # BR2_* part
-                    pkg.conf = conf              # assign it to our br2pkg class
+                    pkg.config = conf              # assign it to our br2pkg class
                     #print pkg.conf
                     continue
 
@@ -65,7 +65,7 @@ for subdir, dirs, files in os.walk(pkgdir):
                     continue
                 if f_help:                      #in help section
                     #print line                 #adding more \n, need to trim
-                    pkg.hel = pkg.hel + line
+                    pkg.msg = pkg.msg + line
                     continue
                 if re.match(reg_hel, line):
                     f_help = 1                  #start of help section
@@ -77,7 +77,7 @@ for subdir, dirs, files in os.walk(pkgdir):
                     deps = deps.strip(' *')
                     deps = re.sub('[a-z\W]*','',deps)
                     deps = deps.strip('\n')
-                    pkg.dep.append(deps)
+                    pkg.depends.append(deps)
                     #print deps
                     continue
 
