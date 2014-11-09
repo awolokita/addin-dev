@@ -6,7 +6,9 @@ from br2pkgmod import br2pkgmod
 from common import env_info
 import json
 
-json_data = open('net.modconfig')
+#json_data = open('net.modconfig')
+
+
 
 # Convert JSON to strings from unicode or whatever
 def convert(input): 
@@ -20,5 +22,6 @@ def convert(input):
         return input
 
 data = json.load(json_data)
-data2 = convert(data)
+#data2 = convert(data)
+
 
