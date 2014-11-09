@@ -3,7 +3,7 @@
 # (C) Andre Wolokita 2014
 # TODO Add tag deletion
 # TODO Handle duplicate tags
-# TODO Handle multiple pkg.json configs
+#
 
 import os #for walk
 import fnmatch #file name checking
@@ -16,16 +16,32 @@ from collections import namedtuple
 #path#
 env = env_info()
 #parameters#
-if len(sys.argv) < 2:
-    print 'not enough args'
+if len(sys.argv) < 3:
+    print 'Not enough arguments.'
+    print 'Usage: python tags.py N CONFIG_LINE ... TAGS ...'
+    print 'Example: python tags.py 2 BR2_PACKAGE_NGREP BR2_PACKAGE_LINPHONE foo bar baz'
     sys.exit()
 
-config = sys.argv[1]
-tags = sys.argv[2:]
+# is the first param a number? #
+try:
+  n_config = int(sys.argv[1])
+except ValueError:
+   print("First parameter is non-integer")
+   sys.exit()
+
+config = sys.argv[2:2+n_config]
+print config
+tags = sys.argv[2+n_config:]
+print tags
 
 pkgdir = '/home/cxcn/blackfin-source/buildroot/blackfin-buildroot/package'
 pkgdir = env.brPath + '/../package'
 
+def config_check(pats,line):
+    for pat in pats:
+        if re.match(pat,line):
+	    return 1
+    return 0
 
 for subdir, dirs, files in os.walk(pkgdir):
     for file in files:
@@ -33,7 +49,10 @@ for subdir, dirs, files in os.walk(pkgdir):
             pkg = br2pkg();
             json_data = open(os.path.join(subdir, file))
 	    data = json.load(json_data)
-	    if not re.match(config,data["config"]):
+	    #for pat in config
+	    #    if not re.match(config,data["config"]):
+	    #	    continue
+	    if not config_check(config,data["config"]):
 		continue
 	    # pull json into br2pkg #
 	    pkg.config = data["config"]
@@ -43,7 +62,10 @@ for subdir, dirs, files in os.walk(pkgdir):
 	    pkg.depends = data["depends"]
 
 	    # append tags #
-	    pkg.tags.append(tags)
-	    print pkg.config
+	    pkg.tags.extend(tags)
 	    #json_data.write(pkg.to_JSON)
+            fi = open(subdir+'/'+'pkg.json', 'w')
+            fi.write(pkg.to_JSON())
+	    fi.close()
+	    print "done"
             json_data.close()
