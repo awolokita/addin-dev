@@ -1,0 +1,28 @@
+{
+    "designator": 0, 
+    "msg": "Test buildroot package module\n", 
+    "name": "andre", 
+    "pkgs": [
+        {
+            "config": "BR2_PACKAGE_NGREP", 
+            "depends": [], 
+            "msg": "\t  Network grep.\n\n\t  http://ngrep.sourceforge.net/\n", 
+            "name": "ngrep", 
+            "tags": [
+                "andre"
+            ]
+        }, 
+        {
+            "config": "BR2_PACKAGE_GREP", 
+            "depends": [
+                "BR2_USE_WCHAR", 
+                "BR2_USE_WCHAR"
+            ], 
+            "msg": "\t  The GNU regular expression matcher.\n\n\t  http://www.gnu.org/software/grep/grep.html\n\n", 
+            "name": "grep", 
+            "tags": [
+                "andre"
+            ]
+        }
+    ]
+}

@@ -18,7 +18,7 @@ from common import env_info
 env = env_info()
 
 pkgdir = '/home/cxcn/blackfin-source/buildroot/blackfin-buildroot/package'
-pkgdir = env.brPath + '/../package'
+pkgdir = env.packagePath
 
 # some regex defs.
 reg_conf = '^config'            #pkg config line for .config

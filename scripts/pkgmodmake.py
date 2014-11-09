@@ -59,7 +59,7 @@ for subdir, dirs, files in os.walk(pkgdir):
 
 	    pkgmod.pkgs.append(pkg) # add the pkg.json to the module
 print pkgmod.to_JSON()
-fi = open(env.pkgmodPath + tag + '-pkgmod.json','w')
+fi = open(env.pkgmodPath +'/' + tag + '-pkgmod.json','w')
 fi.write(pkgmod.to_JSON())
 #data = json.load(json_data)
 #data2 = convert(data)

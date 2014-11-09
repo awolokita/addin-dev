@@ -35,7 +35,7 @@ tags = sys.argv[2+n_config:]
 print tags
 
 pkgdir = '/home/cxcn/blackfin-source/buildroot/blackfin-buildroot/package'
-pkgdir = env.brPath + '/../package'
+pkgdir = env.packagePath
 
 def config_check(pats,line):
     for pat in pats:
