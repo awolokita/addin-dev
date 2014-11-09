@@ -12,7 +12,7 @@ from br2pkg import br2pkg
 from common import env_info
 import sys
 import json
-from collections import namedtuple
+
 #path#
 env = env_info()
 #parameters#

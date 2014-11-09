@@ -12,8 +12,6 @@ import fnmatch
 import re
 env = env_info()
 
-#json_data = open('net.modconfig
-
 if len(sys.argv) < 2:
     print 'Not enough args'
     sys.exit()
@@ -32,13 +30,16 @@ def convert(input):
     else:
         return input
 
+# match tag in given data.tags #
 def tag_check(pat,line):
-"""match give tag in data.tags"""
     for tags in line:
         if re.match(pat,tags):
             return 1
     return 0
 
+pkgmod = br2pkgmod()
+pkgmod.name = tag
+pkgmod.msg = 'Test buildroot package module\n'
 
 for subdir, dirs, files in os.walk(pkgdir):
     for file in files:
@@ -49,6 +50,17 @@ for subdir, dirs, files in os.walk(pkgdir):
             if not tag_check(tag,data["tags"]):
                 continue
 	    print 'found: ' + data["config"]
+            # pull json into br2pkg #
+            pkg.config = data["config"]
+            pkg.name = data["name"]
+            pkg.msg = data["msg"]
+            pkg.tags = data["tags"]
+            pkg.depends = data["depends"]
+
+	    pkgmod.pkgs.append(pkg) # add the pkg.json to the module
+print pkgmod.to_JSON()
+fi = open(env.brPath + '/' + tag + '-pkgmod.json','w')
+fi.write(pkgmod.to_JSON())
 #data = json.load(json_data)
 #data2 = convert(data)
 
