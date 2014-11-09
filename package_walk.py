@@ -6,15 +6,19 @@
 # TODO Handle "depend on"s with multiple OR (||) separated BR2_*
 # TODO Handle multi line deps (with \ as next line token)
 #      Right now the deps shouldn't be used for anything important
-#
+# TODO Handle depend ons linked to comments
 # (C) Andre Wolokita 2014
 #
 import os #for walk
 import fnmatch #file name checking
 import re #regex
 from br2pkg import br2pkg
+from common import env_info
+
+env = env_info()
 
 pkgdir = '/home/cxcn/blackfin-source/buildroot/blackfin-buildroot/package'
+pkgdir = env.brPath + '/../package'
 
 # some regex defs.
 reg_conf = '^config'            #pkg config line for .config
@@ -33,7 +37,7 @@ f_conf_just_set = 0
 
 for subdir, dirs, files in os.walk(pkgdir):
     for file in files:
-        if fnmatch.fnmatch(file, '*.in'):
+        if fnmatch.fnmatch(file, 'Config.in'):
             # new instance of br2pkg - we're only going one deep for now #
             pkg = br2pkg();
             #print os.path.join(subdir, file)
